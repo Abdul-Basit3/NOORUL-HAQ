@@ -1,5 +1,5 @@
 import { useContent } from '../context/ContentContext';
-import './Activities.css';
+//import './Activities.css';
 
 interface Activity {
   id: number;
