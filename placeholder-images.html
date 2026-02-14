@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Placeholder Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0d9488;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        button {
+            background: #0d9488;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background: #0f766e;
+        }
+        .status {
+            padding: 15px;
+            background: #f0fdf4;
+            border-left: 4px solid #0d9488;
+            border-radius: 4px;
+            margin-top: 20px;
+            display: none;
+        }
+        .status.show {
+            display: block;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .image-item {
+            text-align: center;
+        }
+        .image-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+        .image-item p {
+            margin: 8px 0 0 0;
+            font-size: 12px;
+            color: #666;
+        }
+        canvas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ Placeholder Image Generator</h1>
+        <p class="subtitle">Generate placeholder images for the School Mosque Management System</p>
+        
+        <button onclick="generateAllImages()">Generate All Images</button>
+        
+        <div class="status" id="status">
+            <strong>✅ Success!</strong> All 27 placeholder images have been generated. Right-click on each image below and select "Save image as..." to download them to your public folder.
+        </div>
+        
+        <div class="image-grid" id="imageGrid"></div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const images = [
+            // Executive Photos (400x400)
+            { name: 'president.jpg', width: 400, height: 400, text: 'President', color: '#0d9488' },
+            { name: 'imam1.jpg', width: 400, height: 400, text: 'Chief Imam', color: '#0d9488' },
+            { name: 'imam2.jpg', width: 400, height: 400, text: 'Deputy Imam 1', color: '#0d9488' },
+            { name: 'imam3.jpg', width: 400, height: 400, text: 'Deputy Imam 2', color: '#0d9488' },
+            { name: 'muazin.jpg', width: 400, height: 400, text: 'Muazin', color: '#0d9488' },
+            { name: 'secretary.jpg', width: 400, height: 400, text: 'Secretary', color: '#0d9488' },
+            { name: 'organizer.jpg', width: 400, height: 400, text: 'Organizer', color: '#0d9488' },
+            { name: 'treasurer.jpg', width: 400, height: 400, text: 'Treasurer', color: '#0d9488' },
+            { name: 'pro.jpg', width: 400, height: 400, text: 'P.R.O', color: '#0d9488' },
+            { name: 'wocom.jpg', width: 400, height: 400, text: 'WOCOM', color: '#0d9488' },
+            
+            // Activity Images (800x600)
+            { name: 'football.jpg', width: 800, height: 600, text: 'Football', color: '#d97706' },
+            { name: 'quiz.jpg', width: 800, height: 600, text: 'Quiz', color: '#d97706' },
+            { name: 'seminar.jpg', width: 800, height: 600, text: 'Seminar', color: '#d97706' },
+            
+            // Project Images (800x600)
+            { name: 'extend.jpg', width: 800, height: 600, text: 'Extension', color: '#14b8a6' },
+            { name: 'Ramadan.jpg', width: 800, height: 600, text: 'Ramadan', color: '#14b8a6' },
+            { name: 'mosque.jpg', width: 800, height: 600, text: 'Renovation', color: '#14b8a6' },
+            
+            // Course Images (600x400)
+            { name: 'tajweed.jpg', width: 600, height: 400, text: 'Tajweed', color: '#f59e0b' },
+            { name: 'hadith.jpg', width: 600, height: 400, text: 'Hadith', color: '#f59e0b' },
+            { name: 'arabic.jpg', width: 600, height: 400, text: 'Arabic', color: '#f59e0b' },
+            { name: 'fiq.jpg', width: 600, height: 400, text: 'Fiqh', color: '#f59e0b' },
+            { name: 'seera.jpg', width: 600, height: 400, text: 'Seerah', color: '#f59e0b' },
+            
+            // Lecture Images (800x450)
+            { name: 'lecture.jpg', width: 800, height: 450, text: 'Lecture 1', color: '#8b5cf6' },
+            { name: 'lectures2.jpg', width: 800, height: 450, text: 'Lecture 2', color: '#8b5cf6' },
+            { name: 'Salah.jpg', width: 800, height: 450, text: 'Salah', color: '#8b5cf6' },
+            { name: 'lectures3.jpg', width: 800, height: 450, text: 'Lecture 3', color: '#8b5cf6' },
+            
+            // Logos (200x200)
+            { name: 'udslogo.jpg', width: 200, height: 200, text: 'UDS', color: '#0d9488' },
+            { name: 'gmsalogo.jpg', width: 200, height: 200, text: 'GMSA', color: '#0d9488' },
+        ];
+
+        function generateImage(config) {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = config.width;
+            canvas.height = config.height;
+            
+            // Create gradient background
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, config.color);
+            gradient.addColorStop(1, adjustColor(config.color, -20));
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add pattern
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = 2;
+            for (let i = 0; i < canvas.width; i += 40) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i + canvas.height, canvas.height);
+                ctx.stroke();
+            }
+            
+            // Add text
+            ctx.fillStyle = 'white';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            const fontSize = Math.min(canvas.width, canvas.height) / 8;
+            ctx.font = `bold ${fontSize}px Arial`;
+            ctx.fillText(config.text, canvas.width / 2, canvas.height / 2);
+            
+            // Add dimensions text
+            ctx.font = `${fontSize / 3}px Arial`;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.fillText(`${config.width}x${config.height}`, canvas.width / 2, canvas.height / 2 + fontSize);
+            
+            return canvas.toDataURL('image/jpeg', 0.9);
+        }
+
+        function adjustColor(color, amount) {
+            const num = parseInt(color.replace('#', ''), 16);
+            const r = Math.max(0, Math.min(255, (num >> 16) + amount));
+            const g = Math.max(0, Math.min(255, ((num >> 8) & 0x00FF) + amount));
+            const b = Math.max(0, Math.min(255, (num & 0x0000FF) + amount));
+            return '#' + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+        }
+
+        function generateAllImages() {
+            const grid = document.getElementById('imageGrid');
+            grid.innerHTML = '';
+            
+            images.forEach(config => {
+                const dataUrl = generateImage(config);
+                
+                const item = document.createElement('div');
+                item.className = 'image-item';
+                
+                const img = document.createElement('img');
+                img.src = dataUrl;
+                img.alt = config.name;
+                img.download = config.name;
+                
+                const p = document.createElement('p');
+                p.textContent = config.name;
+                
+                item.appendChild(img);
+                item.appendChild(p);
+                grid.appendChild(item);
+            });
+            
+            document.getElementById('status').classList.add('show');
+        }
+    </script>
+</body>
+</html>

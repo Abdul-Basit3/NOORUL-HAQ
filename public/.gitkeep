@@ -1,0 +1,13 @@
+# Place all your images in this public folder
+
+This file ensures the public folder is tracked by git even when empty.
+
+All 27 images should be placed directly in this folder:
+- 10 executive photos
+- 3 activity images  
+- 3 project images
+- 5 course images
+- 4 lecture images
+- 2 logos
+
+See IMAGE_CHECKLIST.md in the root folder for the complete list.
