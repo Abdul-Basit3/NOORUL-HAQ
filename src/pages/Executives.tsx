@@ -18,7 +18,7 @@ const Executives = () => {
           <div key={executive.id} className="executive-card card">
             <div className="executive-photo-wrapper">
               <img 
-                src={`/public/images/${executive.photo}`}
+                src={`/images/${executive.photo}`}
                 alt={executive.name}
                 className="executive-photo"
                 onError={(e) => {

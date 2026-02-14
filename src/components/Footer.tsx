@@ -55,7 +55,7 @@ const Footer = () => {
         <div className="footer-section">
           <div className="footer-logos">
             <img 
-              src="/public/images/udslogo.jpg" 
+              src="/images/udslogo.jpg" 
               alt="UDS Logo" 
               className="footer-logo"
               onError={(e) => {
@@ -63,7 +63,7 @@ const Footer = () => {
               }}
             />
             <img 
-              src="/public/images/gmsalogo.jpg" 
+              src="/images/gmsalogo.jpg" 
               alt="GMSA Logo" 
               className="footer-logo"
               onError={(e) => {

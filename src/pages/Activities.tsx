@@ -42,7 +42,7 @@ const Activities = () => {
             <div key={activity.id} className="activity-card card">
               <div className="activity-image-wrapper">
                 <img 
-                  src={`/public/images/${activity.image}`}
+                  src={`/images/${activity.image}`}
                   alt={activity.title}
                   className="activity-image"
                   onError={(e) => {

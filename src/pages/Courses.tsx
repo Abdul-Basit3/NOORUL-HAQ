@@ -28,7 +28,7 @@ const Courses = () => {
           <div key={course.id} className="course-card card">
             <div className="course-image-wrapper">
               <img 
-                src={`/public/images/${course.image}`}
+                src={`/images/${course.image}`}
                 alt={course.title}
                 className="course-image"
                 onError={(e) => {

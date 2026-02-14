@@ -20,7 +20,7 @@ const Projects = () => {
             <div key={project.id} className="project-card card">
               <div className="project-image-wrapper">
                 <img 
-                  src={`/public/images/${project.image}`}
+                  src={`/images/${project.image}`}
                   alt={project.title}
                   className="project-image"
                   onError={(e) => {

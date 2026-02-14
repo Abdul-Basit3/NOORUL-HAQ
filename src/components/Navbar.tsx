@@ -25,7 +25,7 @@ const Navbar = ({ onMenuClick }: NavbarProps) => {
         </button>
         <div className="navbar-logos">
           <img 
-            src="/public/images/udslogo.jpg" 
+            src="/images/udslogo.jpg" 
             alt="UDS Logo" 
             className="navbar-logo"
             onError={(e) => {
@@ -33,7 +33,7 @@ const Navbar = ({ onMenuClick }: NavbarProps) => {
             }}
           />
           <img 
-            src="/public/images/gmsalogo.jpg" 
+            src="/images/gmsalogo.jpg" 
             alt="GMSA Logo" 
             className="navbar-logo"
             onError={(e) => {

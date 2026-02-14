@@ -102,7 +102,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         <div className="sidebar-header">
           <div className="sidebar-logo">
             <img 
-              src="/public/images/udslogo.jpg" 
+              src="/images/udslogo.jpg" 
               alt="UDS Logo" 
               className="sidebar-logo-img"
               onError={(e) => {

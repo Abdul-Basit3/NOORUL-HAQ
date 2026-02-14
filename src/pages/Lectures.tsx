@@ -31,7 +31,7 @@ const Lectures = () => {
           <div key={lecture.id} className="lecture-card card">
             <div className="lecture-thumbnail-wrapper">
               <img 
-                src={`/public/images/${lecture.thumbnail}`}
+                src={`/images/${lecture.thumbnail}`}
                 alt={lecture.title}
                 className="lecture-thumbnail"
                 onError={(e) => {
