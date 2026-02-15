@@ -87,7 +87,19 @@ interface ContentContextType {
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
 
+const DATA_VERSION = '1.2'; // Increment this to force refresh
+
 const getStoredData = <T,>(key: string, defaultValue: T): T => {
+  const versionKey = `${key}_version`;
+  const savedVersion = localStorage.getItem(versionKey);
+  
+  if (savedVersion !== DATA_VERSION) {
+    // Clear old data and set new version
+    localStorage.removeItem(key);
+    localStorage.setItem(versionKey, DATA_VERSION);
+    return defaultValue;
+  }
+  
   const saved = localStorage.getItem(key);
   return saved ? JSON.parse(saved) : defaultValue;
 };
@@ -226,7 +238,7 @@ export const ContentProvider = ({ children }: { children: ReactNode }) => {
         description: 'Providing iftar meals and support during the blessed month to families in need',
         goal: 25000,
         raised: 18750,
-        image: 'Ramadan.jpg',
+        image: 'ramadan.jpg',
         donors: 156,
         daysLeft: 30,
       },
@@ -288,82 +300,82 @@ export const ContentProvider = ({ children }: { children: ReactNode }) => {
     getStoredData('executives', [
       {
         id: 1,
-        name: 'President',
+        name: 'Ahmed Ibrahim',
         position: 'President',
-        phone: '+1 (555) 123-4567',
-        email: 'president@mosqueschool.org',
+        phone: '+233 (0) 123-4567',
+        email: 'president@gmsa.edu.gh',
         photo: 'president.jpg',
       },
       {
         id: 2,
-        name: 'Chief Imam',
+        name: 'Sheikh Abdullah Yusuf',
         position: 'Chief Imam',
-        phone: '+1 (555) 234-5678',
-        email: 'imam@mosqueschool.org',
+        phone: '+233 (0) 234-5678',
+        email: 'imam@gmsa.edu.gh',
         photo: 'imam1.jpg',
       },
       {
         id: 3,
-        name: 'First Deputy Imam',
+        name: 'Imam Hassan Mahmoud',
         position: 'First Deputy Imam',
-        phone: '+1 (555) 345-6789',
-        email: 'deputy1@mosqueschool.org',
+        phone: '+233 (0) 345-6789',
+        email: 'deputy1@gmsa.edu.gh',
         photo: 'imam2.jpg',
       },
       {
         id: 4,
-        name: 'Second Deputy Imam',
+        name: 'Imam Bilal Omar',
         position: 'Second Deputy Imam',
-        phone: '+1 (555) 456-7890',
-        email: 'deputy2@mosqueschool.org',
+        phone: '+233 (0) 456-7890',
+        email: 'deputy2@gmsa.edu.gh',
         photo: 'imam3.jpg',
       },
       {
         id: 5,
-        name: 'Muazin',
+        name: 'Khalid Abdullahi',
         position: 'Muazin (Caller of Prayers)',
-        phone: '+1 (555) 567-8901',
-        email: 'muazin@mosqueschool.org',
+        phone: '+233 (0) 567-8901',
+        email: 'muazin@gmsa.edu.gh',
         photo: 'muazin.jpg',
       },
       {
         id: 6,
-        name: 'Secretary',
+        name: 'Fatima Zahra',
         position: 'Secretary',
-        phone: '+1 (555) 678-9012',
-        email: 'secretary@mosqueschool.org',
+        phone: '+233 (0) 678-9012',
+        email: 'secretary@gmsa.edu.gh',
         photo: 'secretary.jpg',
       },
       {
         id: 7,
-        name: 'Secretary Organizer',
+        name: 'Aisha Mohammed',
         position: 'Secretary Organizer',
-        phone: '+1 (555) 789-0123',
-        email: 'organizer@mosqueschool.org',
+        phone: '+233 (0) 789-0123',
+        email: 'organizer@gmsa.edu.gh',
         photo: 'organizer.jpg',
       },
       {
         id: 8,
-        name: 'Treasurer',
+        name: 'Usman Suleiman',
         position: 'Treasurer',
-        phone: '+1 (555) 890-1234',
-        email: 'treasurer@mosqueschool.org',
-        photo: 'treasurer.jpg',
+        phone: '+233 (0) 890-1234',
+        email: 'treasurer@gmsa.edu.gh',
+        photo: 'treaturer.jpg',
       },
       {
         id: 9,
-        name: 'Public Relations Officer',
+        name: 'Maryam Idris',
         position: 'Public Relations Officer (P.R.O)',
-        phone: '+1 (555) 901-2345',
-        email: 'pro@mosqueschool.org',
+        phone: '+233 (0) 901-2345',
+        email: 'pro@gmsa.edu.gh',
         photo: 'pro.jpg',
       },
       {
         id: 10,
-        name: 'Women Commissioner',
+        name: 'Khadija Aminu',
         position: 'Women Commissioner (WOCOM)',
-        phone: '+1 (555) 012-3456',
-        email: 'wocom@mosqueschool.org',
+        phone: '+233 (0) 012-3456',
+        email: 'wocom@gmsa.edu.gh',
         photo: 'wocom.jpg',
       },
     ])

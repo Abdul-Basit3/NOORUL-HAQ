@@ -132,7 +132,6 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
               className={({ isActive }) =>
                 `sidebar-nav-item ${isActive ? 'active' : ''}`
               }
-              onClick={onClose}
               end={item.path === '/'}
             >
               <span className="sidebar-nav-icon">{item.icon}</span>
