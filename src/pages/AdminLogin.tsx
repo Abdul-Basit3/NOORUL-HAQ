@@ -74,12 +74,6 @@ const AdminLogin = () => {
         <div className="login-footer">
           <a href="/login">← Back to User Login</a>
         </div>
-
-        <div className="login-credentials-info">
-          <p><strong>Demo Credentials:</strong></p>
-          <p>Email: admin@gmsa.edu</p>
-          <p>Password: GMSA@Admin2026</p>
-        </div>
       </div>
     </div>
   );
