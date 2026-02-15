@@ -10,7 +10,7 @@ const ProtectedRoute = ({ children, requireAdmin = false }: ProtectedRouteProps)
   const { user } = useAuth();
 
   if (!user) {
-    return <Navigate to={requireAdmin ? '/admin/login' : '/login'} replace />;
+    return <Navigate to={requireAdmin ? '/secret-admin-access-2026' : '/login'} replace />;
   }
 
   if (requireAdmin && user.role !== 'admin') {

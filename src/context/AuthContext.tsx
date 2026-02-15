@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = (email: string, password: string, role: 'user' | 'admin' = 'user') => {
     // Admin credentials
     if (role === 'admin') {
-      if (email === 'admin@gmsa.edu' && password === 'GMSA@Admin2026') {
+      if (email === 'admin@gmsa.edu' && password === 'ImamTanko123') {
         setUser({ email, role: 'admin' });
         return true;
       }
